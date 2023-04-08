@@ -1,11 +1,8 @@
 use axum::{routing::get, Router};
 use std::net::SocketAddr;
 use tower::ServiceBuilder;
-// use tower_http::{compression::CompressionLayer, trace::TraceLayer};
 use tower_http::{compression::CompressionLayer, trace::TraceLayer};
 
-#[derive(Clone)]
-struct State {}
 
 async fn hello_world() -> &'static str {
     "Hello, World!"
@@ -13,7 +10,6 @@ async fn hello_world() -> &'static str {
 
 #[tokio::main]
 async fn main() {
-    // let app = Router::new().route("/", get(hello_world));
     let app = Router::new()
         .route("/", get(hello_world))
         .route("/hello", get(hello_world))
