@@ -1,22 +1,10 @@
-use axum::{routing::get, Router};
 use std::net::SocketAddr;
-use tower::ServiceBuilder;
-use tower_http::{compression::CompressionLayer, trace::TraceLayer};
-
-
-async fn hello_world() -> &'static str {
-    "Hello, World!"
-}
+mod routes;
+mod handlers;
 
 #[tokio::main]
 async fn main() {
-    let app = Router::new()
-        .route("/", get(hello_world))
-        .route("/hello", get(hello_world))
-        .layer(
-            ServiceBuilder::new()
-                .layer(TraceLayer::new_for_http())
-                .layer(CompressionLayer::new()));
+    let app = routes::app();
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
 
